@@ -32,7 +32,7 @@ const updateUi = async (url, data = {}) => {
   try {
     const data = await entries.json();
     document.getElementById("date").textContent = data.date;
-    document.getElementById("temp").textContent = data.temperature;
+    document.getElementById("temp").textContent = data.temperature + "°C";
     document.getElementById("content").textContent = data.userResponse;
   } catch (error) {
     console.log("💩 something went wrong during ui update... ", error);
