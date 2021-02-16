@@ -1,6 +1,8 @@
 /* Global Variables */
 const apiKey = "7c45c3f0c4257b1d5b6637155c16479c";
 const baseUrl = "http://api.openweathermap.org/data/2.5/weather?zip=";
+// German Zip Codes only!
+const checkZipCode = new RegExp("^\\d+");
 
 let myTemp;
 let d = new Date();
@@ -12,17 +14,24 @@ const button = document.getElementById("generate");
 button.addEventListener("click", buttonClickListener);
 
 function buttonClickListener(event) {
-  getWeatherData(myUrl)
-    .then(() => {
-      persistWeatherData("/projectData", {
-        date: newDate,
-        temperature: myTemp,
-        userResponse: document.getElementById("feelings").value
+  if (
+    checkZipCode.test(zipCode) &&
+    document.getElementById("feelings").value !== ""
+  ) {
+    getWeatherData(myUrl)
+      .then(() => {
+        persistWeatherData("/projectData", {
+          date: newDate,
+          temperature: myTemp,
+          userResponse: document.getElementById("feelings").value
+        });
+      })
+      .then(() => {
+        updateUi("/projectData");
       });
-    })
-    .then(() => {
-      updateUi("/projectData");
-    });
+  } else {
+    console.log("user input empty or zip code invalid");
+  }
 }
 
 const updateUi = async (url, data = {}) => {
