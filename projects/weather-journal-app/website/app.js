@@ -1,19 +1,22 @@
 /* Global Variables */
 const apiKey = "7c45c3f0c4257b1d5b6637155c16479c";
 const baseUrl = "http://api.openweathermap.org/data/2.5/weather?zip=";
-// German Zip Codes only!
-const checkZipCode = new RegExp("^\\d+");
+// Very simplified check for zip codes (only allow numbers)
+const checkZipCode = new RegExp("^\\d+$");
 
-let myTemp;
+let myTemp = "";
+let zipCode = "";
 let d = new Date();
 let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
-let zipCode = document.getElementById("zip").value;
-let myUrl = baseUrl + zipCode + ",de&units=metric&appId=" + apiKey;
 
 const button = document.getElementById("generate");
 button.addEventListener("click", buttonClickListener);
 
 function buttonClickListener(event) {
+  zipCode = document.getElementById("zip").value;
+  let myUrl = baseUrl + zipCode + ",de&units=metric&appId=" + apiKey;
+
+  console.log(zipCode);
   if (
     checkZipCode.test(zipCode) &&
     document.getElementById("feelings").value !== ""
@@ -25,6 +28,8 @@ function buttonClickListener(event) {
           temperature: myTemp,
           userResponse: document.getElementById("feelings").value
         });
+        document.getElementById("feelings").value = "";
+        document.getElementById("zip").value = "";
       })
       .then(() => {
         updateUi("/projectData");
@@ -37,7 +42,6 @@ function buttonClickListener(event) {
 const updateUi = async (url, data = {}) => {
   console.log(url);
   const entries = await fetch(url);
-
   try {
     const data = await entries.json();
     document.getElementById("date").textContent = data.date;
