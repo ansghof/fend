@@ -49,7 +49,7 @@ body {
   /* justify-content: center; */
   justify-content: space-around;
   align-content: space-between;
-  /* justify-content: stretch; */
+  text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
 }
 
 #date {
@@ -71,6 +71,8 @@ body {
   font-size: 3em;
 }
 .title {
+  text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+  padding-left: 10px;
   font-size: 1em;
 }
 
@@ -95,11 +97,12 @@ button {
   width: 400px;
   height: 100px;
   background: rgba(81, 83, 84, 0.4);
-  color: rgba(29, 31, 32, 1);
+  color: rgba(212, 212, 212, 1);
   font-size: 26px;
   font-family: "Oswald", sans-serif;
   border: none;
   box-shadow: 2px 4px 5px #444;
+  text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
 }
 h1 {
   font-size: 36px;
